@@ -12,6 +12,7 @@
 namespace Symfony\AI\McpSdk\Server;
 
 use Psr\Log\LoggerInterface;
+use Symfony\AI\McpSdk\Exception\ExceptionInterface;
 use Symfony\AI\McpSdk\Exception\HandlerNotFoundException;
 use Symfony\AI\McpSdk\Exception\NotFoundExceptionInterface;
 use Symfony\AI\McpSdk\Message\Error;
@@ -19,7 +20,6 @@ use Symfony\AI\McpSdk\Message\Factory;
 use Symfony\AI\McpSdk\Message\Notification;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
-use Symfony\Component\String\Exception\ExceptionInterface;
 
 /**
  * @final
@@ -51,6 +51,7 @@ readonly class JsonRpcHandler
     }
 
     /**
+     * @throws ExceptionInterface
      * @throws \JsonException
      */
     public function process(string $message): ?string
@@ -88,6 +89,9 @@ readonly class JsonRpcHandler
         }
     }
 
+    /**
+     * @throws \JsonException
+     */
     private function encodeResponse(Response|Error|null $response): ?string
     {
         if (null === $response) {
@@ -105,15 +109,22 @@ readonly class JsonRpcHandler
         return json_encode($response, \JSON_THROW_ON_ERROR);
     }
 
+    /**
+     * @throws ExceptionInterface
+     */
     private function handleNotification(Notification $notification): null
     {
+        $handled = false;
         foreach ($this->notificationHandlers as $handler) {
             if ($handler->supports($notification)) {
-                return $handler->handle($notification);
+                $handler->handle($notification);
+                $handled = true;
             }
         }
 
-        $this->logger->warning(\sprintf('No handler found for "%s".', $notification->method), ['notification' => $notification]);
+        if (!$handled) {
+            $this->logger->warning(\sprintf('No handler found for "%s".', $notification->method), ['notification' => $notification]);
+        }
 
         return null;
     }

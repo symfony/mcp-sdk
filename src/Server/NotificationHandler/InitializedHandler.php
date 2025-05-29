@@ -20,8 +20,7 @@ final class InitializedHandler extends BaseNotificationHandler
         return 'initialized';
     }
 
-    public function handle(Notification $notification): null
+    public function handle(Notification $notification): void
     {
-        return null;
     }
 }

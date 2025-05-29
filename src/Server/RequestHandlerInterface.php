@@ -11,6 +11,7 @@
 
 namespace Symfony\AI\McpSdk\Server;
 
+use Symfony\AI\McpSdk\Exception\ExceptionInterface;
 use Symfony\AI\McpSdk\Message\Error;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
@@ -19,5 +20,8 @@ interface RequestHandlerInterface
 {
     public function supports(Request $message): bool;
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function createResponse(Request $message): Response|Error;
 }

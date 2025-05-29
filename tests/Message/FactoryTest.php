@@ -11,11 +11,15 @@
 
 namespace Symfony\AI\McpSdk\Tests\Message;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Message\Factory;
 use Symfony\AI\McpSdk\Message\Notification;
 use Symfony\AI\McpSdk\Message\Request;
 
+#[Small]
+#[CoversClass(Factory::class)]
 final class FactoryTest extends TestCase
 {
     private Factory $factory;

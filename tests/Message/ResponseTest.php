@@ -11,9 +11,13 @@
 
 namespace Symfony\AI\McpSdk\Tests\Message;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Message\Response;
 
+#[Small]
+#[CoversClass(Response::class)]
 final class ResponseTest extends TestCase
 {
     public function testWithIntegerId(): void
