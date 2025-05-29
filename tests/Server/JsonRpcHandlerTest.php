@@ -51,9 +51,10 @@ class JsonRpcHandlerTest extends TestCase
         $handlerC->expects($this->once())->method('handle');
 
         $jsonRpc = new JsonRpcHandler(new Factory(), [], [$handlerA, $handlerB, $handlerC], new NullLogger());
-        $jsonRpc->process(
+        $result = $jsonRpc->process(
             '{"jsonrpc": "2.0", "id": 1, "method": "notifications/foobar"}'
         );
+        iterator_to_array($result);
     }
 
     #[TestDox('Make sure a single request can NOT be handled by multiple handlers.')]
@@ -81,8 +82,9 @@ class JsonRpcHandlerTest extends TestCase
         $handlerC->expects($this->never())->method('createResponse');
 
         $jsonRpc = new JsonRpcHandler(new Factory(), [$handlerA, $handlerB, $handlerC], [], new NullLogger());
-        $jsonRpc->process(
+        $result = $jsonRpc->process(
             '{"jsonrpc": "2.0", "id": 1, "method": "request/foobar"}'
         );
+        iterator_to_array($result);
     }
 }

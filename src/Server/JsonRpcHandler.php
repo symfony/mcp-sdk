@@ -14,6 +14,7 @@ namespace Symfony\AI\McpSdk\Server;
 use Psr\Log\LoggerInterface;
 use Symfony\AI\McpSdk\Exception\ExceptionInterface;
 use Symfony\AI\McpSdk\Exception\HandlerNotFoundException;
+use Symfony\AI\McpSdk\Exception\InvalidInputMessageException;
 use Symfony\AI\McpSdk\Exception\NotFoundExceptionInterface;
 use Symfony\AI\McpSdk\Message\Error;
 use Symfony\AI\McpSdk\Message\Factory;
@@ -51,41 +52,49 @@ readonly class JsonRpcHandler
     }
 
     /**
+     * @return iterable<string|null>
+     *
      * @throws ExceptionInterface
      * @throws \JsonException
      */
-    public function process(string $message): ?string
+    public function process(string $input): iterable
     {
-        $this->logger->info('Received message to process', ['message' => $message]);
+        $this->logger->info('Received message to process', ['message' => $input]);
 
         try {
-            $message = $this->messageFactory->create($message);
+            $messages = $this->messageFactory->create($input);
         } catch (\JsonException $e) {
             $this->logger->warning('Failed to decode json message', ['exception' => $e]);
 
-            return $this->encodeResponse(Error::parseError($e->getMessage()));
-        } catch (\InvalidArgumentException $e) {
-            $this->logger->warning('Failed to create message', ['exception' => $e]);
+            yield $this->encodeResponse(Error::parseError($e->getMessage()));
 
-            return $this->encodeResponse(Error::invalidRequest(0, $e->getMessage()));
+            return;
         }
 
-        $this->logger->info('Decoded incoming message', ['message' => $message]);
+        foreach ($messages as $message) {
+            if ($message instanceof InvalidInputMessageException) {
+                $this->logger->warning('Failed to create message', ['exception' => $message]);
+                yield $this->encodeResponse(Error::invalidRequest(0, $message->getMessage()));
+                continue;
+            }
 
-        try {
-            return $message instanceof Notification
-                ? $this->handleNotification($message)
-                : $this->encodeResponse($this->handleRequest($message));
-        } catch (\DomainException) {
-            return null;
-        } catch (NotFoundExceptionInterface $e) {
-            $this->logger->warning(\sprintf('Failed to create response: %s', $e->getMessage()), ['exception' => $e]);
+            $this->logger->info('Decoded incoming message', ['message' => $message]);
 
-            return $this->encodeResponse(Error::methodNotFound($message->id ?? 0, $e->getMessage()));
-        } catch (\InvalidArgumentException $e) {
-            $this->logger->warning(\sprintf('Invalid argument: %s', $e->getMessage()), ['exception' => $e]);
+            try {
+                yield $message instanceof Notification
+                    ? $this->handleNotification($message)
+                    : $this->encodeResponse($this->handleRequest($message));
+            } catch (\DomainException) {
+                yield null;
+            } catch (NotFoundExceptionInterface $e) {
+                $this->logger->warning(\sprintf('Failed to create response: %s', $e->getMessage()), ['exception' => $e]);
 
-            return $this->encodeResponse(Error::invalidParams($message->id ?? 0, $e->getMessage()));
+                yield $this->encodeResponse(Error::methodNotFound($message->id ?? 0, $e->getMessage()));
+            } catch (\InvalidArgumentException $e) {
+                $this->logger->warning(\sprintf('Invalid argument: %s', $e->getMessage()), ['exception' => $e]);
+
+                yield $this->encodeResponse(Error::invalidParams($message->id ?? 0, $e->getMessage()));
+            }
         }
     }
 

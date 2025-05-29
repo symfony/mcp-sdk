@@ -11,6 +11,6 @@
 
 namespace Symfony\AI\McpSdk\Exception;
 
-class HandlerNotFoundException extends \InvalidArgumentException implements NotFoundExceptionInterface
+class InvalidInputMessageException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

@@ -36,20 +36,20 @@ final readonly class Server
                 }
 
                 try {
-                    $response = $this->jsonRpcHandler->process($message);
+                    foreach ($this->jsonRpcHandler->process($message) as $response) {
+                        if (null === $response) {
+                            continue;
+                        }
+
+                        $transport->send($response);
+                    }
                 } catch (\JsonException $e) {
-                    $this->logger->error('Failed to process message', [
+                    $this->logger->error('Failed to encode response to JSON', [
                         'message' => $message,
                         'exception' => $e,
                     ]);
                     continue;
                 }
-
-                if (null === $response) {
-                    continue;
-                }
-
-                $transport->send($response);
             }
 
             usleep(1000);
