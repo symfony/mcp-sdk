@@ -89,11 +89,15 @@ readonly class JsonRpcHandler
             } catch (NotFoundExceptionInterface $e) {
                 $this->logger->warning(\sprintf('Failed to create response: %s', $e->getMessage()), ['exception' => $e]);
 
-                yield $this->encodeResponse(Error::methodNotFound($message->id ?? 0, $e->getMessage()));
+                yield $this->encodeResponse(Error::methodNotFound($message->id, $e->getMessage()));
             } catch (\InvalidArgumentException $e) {
                 $this->logger->warning(\sprintf('Invalid argument: %s', $e->getMessage()), ['exception' => $e]);
 
-                yield $this->encodeResponse(Error::invalidParams($message->id ?? 0, $e->getMessage()));
+                yield $this->encodeResponse(Error::invalidParams($message->id, $e->getMessage()));
+            } catch (\Throwable $e) {
+                $this->logger->critical(\sprintf('Uncaught exception: %s', $e->getMessage()), ['exception' => $e]);
+
+                yield $this->encodeResponse(Error::internalError($message->id, $e->getMessage()));
             }
         }
     }

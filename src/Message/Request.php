@@ -11,7 +11,7 @@
 
 namespace Symfony\AI\McpSdk\Message;
 
-final class Request implements \JsonSerializable, \Stringable
+final readonly class Request implements \JsonSerializable, \Stringable
 {
     /**
      * @param array<string, mixed>|null $params

@@ -14,6 +14,7 @@ namespace Symfony\AI\McpSdk\Server\RequestHandler;
 use Symfony\AI\McpSdk\Capability\Resource\ResourceRead;
 use Symfony\AI\McpSdk\Capability\Resource\ResourceReaderInterface;
 use Symfony\AI\McpSdk\Exception\ExceptionInterface;
+use Symfony\AI\McpSdk\Exception\ResourceNotFoundException;
 use Symfony\AI\McpSdk\Message\Error;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
@@ -31,6 +32,8 @@ final class ResourceReadHandler extends BaseRequestHandler
 
         try {
             $result = $this->reader->read(new ResourceRead(uniqid('', true), $uri));
+        } catch (ResourceNotFoundException $e) {
+            return new Error($message->id, Error::RESOURCE_NOT_FOUND, $e->getMessage());
         } catch (ExceptionInterface) {
             return Error::internalError($message->id, 'Error while reading resource');
         }

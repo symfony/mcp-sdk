@@ -18,6 +18,7 @@ final readonly class Error implements \JsonSerializable
     public const INVALID_PARAMS = -32602;
     public const INTERNAL_ERROR = -32603;
     public const PARSE_ERROR = -32700;
+    public const RESOURCE_NOT_FOUND = -32002;
 
     public function __construct(
         public string|int $id,
