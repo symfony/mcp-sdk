@@ -20,6 +20,6 @@ final class PromptNotFoundException extends \RuntimeException implements NotFoun
     public function __construct(
         public readonly PromptGet $promptGet,
     ) {
-        parent::__construct(\sprintf('Resource not found for uri: "%s"', $promptGet->name));
+        parent::__construct(\sprintf('Prompt not found for name: "%s"', $promptGet->name));
     }
 }

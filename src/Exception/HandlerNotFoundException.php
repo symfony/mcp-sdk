@@ -13,6 +13,6 @@ declare(strict_types=1);
 
 namespace Symfony\AI\McpSdk\Exception;
 
-interface ExceptionInterface extends \Throwable
+class HandlerNotFoundException extends \InvalidArgumentException implements NotFoundExceptionInterface
 {
 }

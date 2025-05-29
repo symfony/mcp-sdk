@@ -13,10 +13,16 @@ declare(strict_types=1);
 
 namespace Symfony\AI\McpSdk\Capability\Tool;
 
+use Symfony\AI\McpSdk\Exception\InvalidCursorException;
+
 interface CollectionInterface
 {
     /**
-     * @return MetadataInterface[]
+     * @param int $count the number of metadata items to return
+     *
+     * @return iterable<MetadataInterface>
+     *
+     * @throws InvalidCursorException if no item with $lastIdentifier was found
      */
-    public function getMetadata(): array;
+    public function getMetadata(int $count, ?string $lastIdentifier = null): iterable;
 }
