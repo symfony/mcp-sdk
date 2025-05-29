@@ -13,7 +13,6 @@ namespace Symfony\AI\McpSdk\Server\RequestHandler;
 
 use Symfony\AI\McpSdk\Capability\Prompt\CollectionInterface;
 use Symfony\AI\McpSdk\Capability\Prompt\MetadataInterface;
-use Symfony\AI\McpSdk\Message\Notification;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
 
@@ -21,42 +20,53 @@ final class PromptListHandler extends BaseRequestHandler
 {
     public function __construct(
         private readonly CollectionInterface $collection,
+        private readonly int $pageSize = 20,
     ) {
     }
 
-    public function createResponse(Request|Notification $message): Response
+    public function createResponse(Request $message): Response
     {
-        return new Response($message->id, [
-            'prompts' => array_map(function (MetadataInterface $metadata) {
-                $result = [
-                    'name' => $metadata->getName(),
+        $nextCursor = null;
+        $prompts = array_map(function (MetadataInterface $metadata) use (&$nextCursor) {
+            $nextCursor = $metadata->getName();
+            $result = [
+                'name' => $metadata->getName(),
+            ];
+
+            $description = $metadata->getDescription();
+            if (null !== $description) {
+                $result['description'] = $description;
+            }
+
+            $arguments = [];
+            foreach ($metadata->getArguments() as $data) {
+                $argument = [
+                    'name' => $data['name'],
+                    'required' => $data['required'] ?? false,
                 ];
 
-                $description = $metadata->getDescription();
-                if (null !== $description) {
-                    $result['description'] = $description;
+                if (isset($data['description'])) {
+                    $argument['description'] = $data['description'];
                 }
+                $arguments[] = $argument;
+            }
 
-                $arguments = [];
-                foreach ($metadata->getArguments() as $data) {
-                    $argument = [
-                        'name' => $data['name'],
-                        'required' => $data['required'] ?? false,
-                    ];
+            if ([] !== $arguments) {
+                $result['arguments'] = $arguments;
+            }
 
-                    if (isset($data['description'])) {
-                        $argument['description'] = $data['description'];
-                    }
-                    $arguments[] = $argument;
-                }
+            return $result;
+        }, $this->collection->getMetadata($this->pageSize, $message->params['cursor'] ?? null));
 
-                if ([] !== $arguments) {
-                    $result['arguments'] = $arguments;
-                }
+        $result = [
+            'prompts' => $prompts,
+        ];
 
-                return $result;
-            }, $this->collection->getMetadata()),
-        ]);
+        if (null !== $nextCursor && \count($prompts) === $this->pageSize) {
+            $result['nextCursor'] = $nextCursor;
+        }
+
+        return new Response($message->id, $result);
     }
 
     protected function supportedMethod(): string

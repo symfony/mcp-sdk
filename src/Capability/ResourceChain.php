@@ -17,6 +17,7 @@ use Symfony\AI\McpSdk\Capability\Resource\MetadataInterface;
 use Symfony\AI\McpSdk\Capability\Resource\ResourceRead;
 use Symfony\AI\McpSdk\Capability\Resource\ResourceReaderInterface;
 use Symfony\AI\McpSdk\Capability\Resource\ResourceReadResult;
+use Symfony\AI\McpSdk\Exception\InvalidCursorException;
 use Symfony\AI\McpSdk\Exception\ResourceNotFoundException;
 use Symfony\AI\McpSdk\Exception\ResourceReadException;
 
@@ -33,9 +34,28 @@ class ResourceChain implements CollectionInterface, ResourceReaderInterface
     ) {
     }
 
-    public function getMetadata(): array
+    public function getMetadata(int $count, ?string $lastIdentifier = null): iterable
     {
-        return array_filter($this->items, fn ($item) => $item instanceof MetadataInterface);
+        $found = null === $lastIdentifier;
+        foreach ($this->items as $item) {
+            if (!$item instanceof MetadataInterface) {
+                continue;
+            }
+
+            if (false === $found) {
+                $found = $item->getUri() === $lastIdentifier;
+                continue;
+            }
+
+            yield $item;
+            if (--$count <= 0) {
+                break;
+            }
+        }
+
+        if (!$found) {
+            throw new InvalidCursorException($lastIdentifier);
+        }
     }
 
     public function read(ResourceRead $input): ResourceReadResult

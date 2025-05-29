@@ -13,7 +13,6 @@ namespace Symfony\AI\McpSdk\Server\RequestHandler;
 
 use Symfony\AI\McpSdk\Capability\Resource\CollectionInterface;
 use Symfony\AI\McpSdk\Capability\Resource\MetadataInterface;
-use Symfony\AI\McpSdk\Message\Notification;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
 
@@ -21,36 +20,47 @@ final class ResourceListHandler extends BaseRequestHandler
 {
     public function __construct(
         private readonly CollectionInterface $collection,
+        private readonly int $pageSize = 20,
     ) {
     }
 
-    public function createResponse(Request|Notification $message): Response
+    public function createResponse(Request $message): Response
     {
-        return new Response($message->id, [
-            'resources' => array_map(function (MetadataInterface $metadata) {
-                $result = [
-                    'uri' => $metadata->getUri(),
-                    'name' => $metadata->getName(),
-                ];
+        $nextCursor = null;
+        $resources = array_map(function (MetadataInterface $metadata) use (&$nextCursor) {
+            $nextCursor = $metadata->getUri();
+            $result = [
+                'uri' => $metadata->getUri(),
+                'name' => $metadata->getName(),
+            ];
 
-                $description = $metadata->getDescription();
-                if (null !== $description) {
-                    $result['description'] = $description;
-                }
+            $description = $metadata->getDescription();
+            if (null !== $description) {
+                $result['description'] = $description;
+            }
 
-                $mimeType = $metadata->getMimeType();
-                if (null !== $mimeType) {
-                    $result['mimeType'] = $mimeType;
-                }
+            $mimeType = $metadata->getMimeType();
+            if (null !== $mimeType) {
+                $result['mimeType'] = $mimeType;
+            }
 
-                $size = $metadata->getSize();
-                if (null !== $size) {
-                    $result['size'] = $size;
-                }
+            $size = $metadata->getSize();
+            if (null !== $size) {
+                $result['size'] = $size;
+            }
 
-                return $result;
-            }, $this->collection->getMetadata()),
-        ]);
+            return $result;
+        }, $this->collection->getMetadata($this->pageSize, $message->params['cursor'] ?? null));
+
+        $result = [
+            'resources' => $resources,
+        ];
+
+        if (null !== $nextCursor && \count($resources) === $this->pageSize) {
+            $result['nextCursor'] = $nextCursor;
+        }
+
+        return new Response($message->id, $result);
     }
 
     protected function supportedMethod(): string

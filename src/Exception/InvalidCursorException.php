@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -11,13 +13,11 @@
 
 namespace Symfony\AI\McpSdk\Exception;
 
-use Symfony\AI\McpSdk\Capability\Prompt\PromptGet;
-
-final class PromptNotFoundException extends \RuntimeException implements NotFoundExceptionInterface
+final class InvalidCursorException extends \InvalidArgumentException implements ExceptionInterface
 {
     public function __construct(
-        public readonly PromptGet $promptGet,
+        public readonly string $cursor,
     ) {
-        parent::__construct(\sprintf('Prompt not found for name: "%s"', $promptGet->name));
+        parent::__construct(\sprintf('Invalid value for pagination parameter "cursor": "%s"', $cursor));
     }
 }
