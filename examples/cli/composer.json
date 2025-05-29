@@ -1,6 +1,6 @@
 {
     "name": "php-llm/mcp-cli-example",
-    "description": "An example applicationf for CLI",
+    "description": "An example application for CLI",
     "license": "MIT",
     "type": "project",
     "authors": [
@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "php-llm/mcp-sdk": "@dev",
+        "symfony/mcp-sdk": "@dev",
         "symfony/console": "^7.2"
     },
     "minimum-stability": "stable",
