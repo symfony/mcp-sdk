@@ -7,7 +7,7 @@ a PHP application and an LLM model.
 Installation
 ------------
 
-Install the bundle using Composer:
+Install the SDK using Composer:
 
 .. code-block:: terminal
 
@@ -59,9 +59,7 @@ the server supports is defined in the ``Symfony\AI\McpSdk\Server\RequestHandler\
 When the client connects, it sees the capabilities and will ask the server to list
 the tools/resource/prompts etc. When you want to add a new capability, example a
 **Tool** that can tell the current time, you need to provide some metadata to the
-``Symfony\AI\McpSdk\Server\RequestHandler\ToolListHandler``.
-
-.. code-block: php
+``Symfony\AI\McpSdk\Server\RequestHandler\ToolListHandler``::
 
     namespace App;
 
@@ -95,16 +93,14 @@ the tools/resource/prompts etc. When you want to add a new capability, example a
         }
     }
 
-We would also need a class to actually execute the tool.
-
-.. code-block: php
+We would also need a class to actually execute the tool::
 
     namespace App;
 
-    use Symfony\AI\McpSdk\Capability\Tool\ToolExecutorInterface;
     use Symfony\AI\McpSdk\Capability\Tool\IdentifierInterface;
     use Symfony\AI\McpSdk\Capability\Tool\ToolCall;
     use Symfony\AI\McpSdk\Capability\Tool\ToolCallResult;
+    use Symfony\AI\McpSdk\Capability\Tool\ToolExecutorInterface;
 
     class CurrentTimeToolExecutor implements ToolExecutorInterface, IdentifierInterface
     {
@@ -123,9 +119,7 @@ We would also need a class to actually execute the tool.
         }
     }
 
-If you have multiple tools, you can put them in a ToolChain.
-
-.. code-block: php
+If you have multiple tools, you can put them in a ToolChain::
 
     $tools = new ToolChain([
         new CurrentTimeToolMetadata(),
