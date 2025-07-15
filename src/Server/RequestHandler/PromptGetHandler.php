@@ -14,6 +14,7 @@ namespace Symfony\AI\McpSdk\Server\RequestHandler;
 use Symfony\AI\McpSdk\Capability\Prompt\PromptGet;
 use Symfony\AI\McpSdk\Capability\Prompt\PromptGetterInterface;
 use Symfony\AI\McpSdk\Exception\ExceptionInterface;
+use Symfony\AI\McpSdk\Exception\InvalidArgumentException;
 use Symfony\AI\McpSdk\Message\Error;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
@@ -57,7 +58,7 @@ final class PromptGetHandler extends BaseRequestHandler
                     ],
                 ],
                 // TODO better exception
-                default => throw new \InvalidArgumentException('Unsupported PromptGet result type: '.$resultMessage->type),
+                default => throw new InvalidArgumentException('Unsupported PromptGet result type: '.$resultMessage->type),
             };
 
             $messages[] = [

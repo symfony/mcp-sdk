@@ -14,6 +14,7 @@ namespace Symfony\AI\McpSdk\Server\RequestHandler;
 use Symfony\AI\McpSdk\Capability\Tool\ToolCall;
 use Symfony\AI\McpSdk\Capability\Tool\ToolExecutorInterface;
 use Symfony\AI\McpSdk\Exception\ExceptionInterface;
+use Symfony\AI\McpSdk\Exception\InvalidArgumentException;
 use Symfony\AI\McpSdk\Message\Error;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
@@ -55,7 +56,7 @@ final class ToolCallHandler extends BaseRequestHandler
                 ],
             ],
             // TODO better exception
-            default => throw new \InvalidArgumentException('Unsupported tool result type: '.$result->type),
+            default => throw new InvalidArgumentException('Unsupported tool result type: '.$result->type),
         };
 
         return new Response($message->id, [
