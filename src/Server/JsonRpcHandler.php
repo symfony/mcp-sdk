@@ -12,6 +12,7 @@
 namespace Symfony\AI\McpSdk\Server;
 
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\AI\McpSdk\Exception\ExceptionInterface;
 use Symfony\AI\McpSdk\Exception\HandlerNotFoundException;
 use Symfony\AI\McpSdk\Exception\InvalidInputMessageException;
@@ -45,7 +46,7 @@ readonly class JsonRpcHandler
         private Factory $messageFactory,
         iterable $requestHandlers,
         iterable $notificationHandlers,
-        private LoggerInterface $logger,
+        private LoggerInterface $logger = new NullLogger(),
     ) {
         $this->requestHandlers = $requestHandlers instanceof \Traversable ? iterator_to_array($requestHandlers) : $requestHandlers;
         $this->notificationHandlers = $notificationHandlers instanceof \Traversable ? iterator_to_array($notificationHandlers) : $notificationHandlers;
