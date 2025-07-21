@@ -60,7 +60,7 @@ final class ToolCallHandler extends BaseRequestHandler
         };
 
         return new Response($message->id, [
-            'content' => $content,
+            'content' => [$content], // TODO: allow multiple `ToolCallResult`s in the future
             'isError' => $result->isError,
         ]);
     }
