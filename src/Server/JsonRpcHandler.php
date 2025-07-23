@@ -54,8 +54,8 @@ readonly class JsonRpcHandler
     /**
      * @return iterable<string|null>
      *
-     * @throws ExceptionInterface
-     * @throws \JsonException
+     * @throws ExceptionInterface When a handler throws an exception during message processing
+     * @throws \JsonException     When JSON encoding of the response fails
      */
     public function process(string $input): iterable
     {
@@ -103,7 +103,7 @@ readonly class JsonRpcHandler
     }
 
     /**
-     * @throws \JsonException
+     * @throws \JsonException When JSON encoding fails
      */
     private function encodeResponse(Response|Error|null $response): ?string
     {
@@ -123,7 +123,7 @@ readonly class JsonRpcHandler
     }
 
     /**
-     * @throws ExceptionInterface
+     * @throws ExceptionInterface When a notification handler throws an exception
      */
     private function handleNotification(Notification $notification): null
     {
@@ -143,8 +143,8 @@ readonly class JsonRpcHandler
     }
 
     /**
-     * @throws NotFoundExceptionInterface
-     * @throws ExceptionInterface
+     * @throws NotFoundExceptionInterface When no handler is found for the request method
+     * @throws ExceptionInterface         When a request handler throws an exception
      */
     private function handleRequest(Request $request): Response|Error
     {

@@ -18,7 +18,7 @@ final class Factory
     /**
      * @return iterable<Notification|Request|InvalidInputMessageException>
      *
-     * @throws \JsonException
+     * @throws \JsonException When the input string is not valid JSON
      */
     public function create(string $input): iterable
     {

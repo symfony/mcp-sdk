@@ -21,7 +21,7 @@ interface RequestHandlerInterface
     public function supports(Request $message): bool;
 
     /**
-     * @throws ExceptionInterface
+     * @throws ExceptionInterface When the handler encounters an error processing the request
      */
     public function createResponse(Request $message): Response|Error;
 }

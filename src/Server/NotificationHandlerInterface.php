@@ -19,7 +19,7 @@ interface NotificationHandlerInterface
     public function supports(Notification $message): bool;
 
     /**
-     * @throws ExceptionInterface
+     * @throws ExceptionInterface When the handler encounters an error processing the notification
      */
     public function handle(Notification $notification): void;
 }
