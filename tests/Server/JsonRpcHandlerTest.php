@@ -13,6 +13,7 @@ namespace Symfony\AI\McpSdk\Tests\Server;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
@@ -26,8 +27,9 @@ use Symfony\AI\McpSdk\Server\RequestHandlerInterface;
 #[CoversClass(JsonRpcHandler::class)]
 class JsonRpcHandlerTest extends TestCase
 {
+    #[Test]
     #[TestDox('Make sure a single notification can be handled by multiple handlers.')]
-    public function testHandleMultipleNotifications(): void
+    public function handleMultipleNotifications(): void
     {
         $handlerA = $this->getMockBuilder(NotificationHandlerInterface::class)
             ->disableOriginalConstructor()
@@ -57,8 +59,9 @@ class JsonRpcHandlerTest extends TestCase
         iterator_to_array($result);
     }
 
+    #[Test]
     #[TestDox('Make sure a single request can NOT be handled by multiple handlers.')]
-    public function testHandleMultipleRequests(): void
+    public function handleMultipleRequests(): void
     {
         $handlerA = $this->getMockBuilder(RequestHandlerInterface::class)
             ->disableOriginalConstructor()

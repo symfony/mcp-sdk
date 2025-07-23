@@ -13,6 +13,7 @@ namespace Symfony\AI\McpSdk\Tests\Message;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Small;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Message\Response;
 
@@ -20,7 +21,8 @@ use Symfony\AI\McpSdk\Message\Response;
 #[CoversClass(Response::class)]
 final class ResponseTest extends TestCase
 {
-    public function testWithIntegerId(): void
+    #[Test]
+    public function withIntegerId(): void
     {
         $response = new Response(1, ['foo' => 'bar']);
         $expected = [
@@ -32,7 +34,8 @@ final class ResponseTest extends TestCase
         self::assertSame($expected, $response->jsonSerialize());
     }
 
-    public function testWithStringId(): void
+    #[Test]
+    public function withStringId(): void
     {
         $response = new Response('abc', ['foo' => 'bar']);
         $expected = [
