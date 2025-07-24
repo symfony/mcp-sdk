@@ -34,7 +34,7 @@ final class ErrorTest extends TestCase
             ],
         ];
 
-        self::assertSame($expected, $error->jsonSerialize());
+        $this->assertSame($expected, $error->jsonSerialize());
     }
 
     #[Test]
@@ -50,6 +50,6 @@ final class ErrorTest extends TestCase
             ],
         ];
 
-        self::assertSame($expected, $error->jsonSerialize());
+        $this->assertSame($expected, $error->jsonSerialize());
     }
 }
