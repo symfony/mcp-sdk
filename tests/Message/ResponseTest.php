@@ -31,7 +31,7 @@ final class ResponseTest extends TestCase
             'result' => ['foo' => 'bar'],
         ];
 
-        self::assertSame($expected, $response->jsonSerialize());
+        $this->assertSame($expected, $response->jsonSerialize());
     }
 
     #[Test]
@@ -44,6 +44,6 @@ final class ResponseTest extends TestCase
             'result' => ['foo' => 'bar'],
         ];
 
-        self::assertSame($expected, $response->jsonSerialize());
+        $this->assertSame($expected, $response->jsonSerialize());
     }
 }

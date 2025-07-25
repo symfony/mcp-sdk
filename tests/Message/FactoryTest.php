@@ -50,10 +50,10 @@ final class FactoryTest extends TestCase
 
         $result = $this->first($this->factory->create($json));
 
-        self::assertInstanceOf(Request::class, $result);
-        self::assertSame('test_method', $result->method);
-        self::assertSame(['foo' => 'bar'], $result->params);
-        self::assertSame(123, $result->id);
+        $this->assertInstanceOf(Request::class, $result);
+        $this->assertSame('test_method', $result->method);
+        $this->assertSame(['foo' => 'bar'], $result->params);
+        $this->assertSame(123, $result->id);
     }
 
     #[Test]
@@ -63,9 +63,9 @@ final class FactoryTest extends TestCase
 
         $result = $this->first($this->factory->create($json));
 
-        self::assertInstanceOf(Notification::class, $result);
-        self::assertSame('notifications/test_event', $result->method);
-        self::assertSame(['foo' => 'bar'], $result->params);
+        $this->assertInstanceOf(Notification::class, $result);
+        $this->assertSame('notifications/test_event', $result->method);
+        $this->assertSame(['foo' => 'bar'], $result->params);
     }
 
     #[Test]
@@ -80,7 +80,7 @@ final class FactoryTest extends TestCase
     public function missingMethod(): void
     {
         $result = $this->first($this->factory->create('{"jsonrpc": "2.0", "params": {}, "id": 1}'));
-        self::assertInstanceOf(InvalidInputMessageException::class, $result);
+        $this->assertInstanceOf(InvalidInputMessageException::class, $result);
         $this->assertEquals('Invalid JSON-RPC request, missing "method".', $result->getMessage());
     }
 
@@ -91,10 +91,10 @@ final class FactoryTest extends TestCase
 
         $results = iterator_to_array($results);
         $result = array_shift($results);
-        self::assertInstanceOf(InvalidInputMessageException::class, $result);
+        $this->assertInstanceOf(InvalidInputMessageException::class, $result);
         $this->assertEquals('Invalid JSON-RPC request, missing "method".', $result->getMessage());
 
         $result = array_shift($results);
-        self::assertInstanceOf(Notification::class, $result);
+        $this->assertInstanceOf(Notification::class, $result);
     }
 }
