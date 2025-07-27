@@ -13,7 +13,6 @@ namespace Symfony\AI\McpSdk\Tests\Message;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Small;
-use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Exception\InvalidInputMessageException;
 use Symfony\AI\McpSdk\Message\Factory;
@@ -43,8 +42,7 @@ final class FactoryTest extends TestCase
         return null;
     }
 
-    #[Test]
-    public function createRequest(): void
+    public function testCreateRequest(): void
     {
         $json = '{"jsonrpc": "2.0", "method": "test_method", "params": {"foo": "bar"}, "id": 123}';
 
@@ -56,8 +54,7 @@ final class FactoryTest extends TestCase
         $this->assertSame(123, $result->id);
     }
 
-    #[Test]
-    public function createNotification(): void
+    public function testCreateNotification(): void
     {
         $json = '{"jsonrpc": "2.0", "method": "notifications/test_event", "params": {"foo": "bar"}}';
 
@@ -68,24 +65,21 @@ final class FactoryTest extends TestCase
         $this->assertSame(['foo' => 'bar'], $result->params);
     }
 
-    #[Test]
-    public function invalidJson(): void
+    public function testInvalidJson(): void
     {
         $this->expectException(\JsonException::class);
 
         $this->first($this->factory->create('invalid json'));
     }
 
-    #[Test]
-    public function missingMethod(): void
+    public function testMissingMethod(): void
     {
         $result = $this->first($this->factory->create('{"jsonrpc": "2.0", "params": {}, "id": 1}'));
         $this->assertInstanceOf(InvalidInputMessageException::class, $result);
         $this->assertEquals('Invalid JSON-RPC request, missing "method".', $result->getMessage());
     }
 
-    #[Test]
-    public function batchMissingMethod(): void
+    public function testBatchMissingMethod(): void
     {
         $results = $this->factory->create('[{"jsonrpc": "2.0", "params": {}, "id": 1}, {"jsonrpc": "2.0", "method": "notifications/test_event", "params": {}, "id": 2}]');
 

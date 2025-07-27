@@ -14,7 +14,6 @@ namespace Symfony\AI\McpSdk\Tests\Server\RequestHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
-use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Capability\Resource\CollectionInterface;
 use Symfony\AI\McpSdk\Capability\Resource\MetadataInterface;
@@ -25,8 +24,7 @@ use Symfony\AI\McpSdk\Server\RequestHandler\ResourceListHandler;
 #[CoversClass(ResourceListHandler::class)]
 class ResourceListHandlerTest extends TestCase
 {
-    #[Test]
-    public function handleEmpty(): void
+    public function testHandleEmpty(): void
     {
         $collection = $this->getMockBuilder(CollectionInterface::class)
             ->disableOriginalConstructor()
@@ -44,9 +42,8 @@ class ResourceListHandlerTest extends TestCase
     /**
      * @param iterable<MetadataInterface> $metadataList
      */
-    #[Test]
     #[DataProvider('metadataProvider')]
-    public function handleReturnAll(iterable $metadataList): void
+    public function testHandleReturnAll(iterable $metadataList): void
     {
         $collection = $this->getMockBuilder(CollectionInterface::class)
             ->disableOriginalConstructor()
@@ -73,8 +70,7 @@ class ResourceListHandlerTest extends TestCase
         ];
     }
 
-    #[Test]
-    public function handlePagination(): void
+    public function testHandlePagination(): void
     {
         $item = self::createMetadataItem();
         $collection = $this->getMockBuilder(CollectionInterface::class)

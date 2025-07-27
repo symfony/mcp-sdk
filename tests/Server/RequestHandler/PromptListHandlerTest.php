@@ -13,7 +13,6 @@ namespace Symfony\AI\McpSdk\Tests\Server\RequestHandler;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Small;
-use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Capability\Prompt\MetadataInterface;
 use Symfony\AI\McpSdk\Capability\PromptChain;
@@ -24,8 +23,7 @@ use Symfony\AI\McpSdk\Server\RequestHandler\PromptListHandler;
 #[CoversClass(PromptListHandler::class)]
 class PromptListHandlerTest extends TestCase
 {
-    #[Test]
-    public function handleEmpty(): void
+    public function testHandleEmpty(): void
     {
         $handler = new PromptListHandler(new PromptChain([]));
         $message = new Request(1, 'prompts/list', []);
@@ -34,8 +32,7 @@ class PromptListHandlerTest extends TestCase
         $this->assertEquals(['prompts' => []], $response->result);
     }
 
-    #[Test]
-    public function handleReturnAll(): void
+    public function testHandleReturnAll(): void
     {
         $item = self::createMetadataItem();
         $handler = new PromptListHandler(new PromptChain([$item]));
@@ -45,8 +42,7 @@ class PromptListHandlerTest extends TestCase
         $this->assertArrayNotHasKey('nextCursor', $response->result);
     }
 
-    #[Test]
-    public function handlePagination(): void
+    public function testHandlePagination(): void
     {
         $item = self::createMetadataItem();
         $handler = new PromptListHandler(new PromptChain([$item, $item]), 2);

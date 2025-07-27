@@ -13,7 +13,6 @@ namespace Symfony\AI\McpSdk\Tests\Message;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Small;
-use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Message\Error;
 
@@ -21,8 +20,7 @@ use Symfony\AI\McpSdk\Message\Error;
 #[CoversClass(Error::class)]
 final class ErrorTest extends TestCase
 {
-    #[Test]
-    public function withIntegerId(): void
+    public function testWithIntegerId(): void
     {
         $error = new Error(1, -32602, 'Another error occurred');
         $expected = [
@@ -37,8 +35,7 @@ final class ErrorTest extends TestCase
         $this->assertSame($expected, $error->jsonSerialize());
     }
 
-    #[Test]
-    public function withStringId(): void
+    public function testWithStringId(): void
     {
         $error = new Error('abc', -32602, 'Another error occurred');
         $expected = [

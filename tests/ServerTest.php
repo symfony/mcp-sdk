@@ -13,7 +13,6 @@ namespace Symfony\AI\McpSdk\Tests;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Small;
-use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\Stub\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
@@ -25,8 +24,7 @@ use Symfony\AI\McpSdk\Tests\Fixtures\InMemoryTransport;
 #[CoversClass(Server::class)]
 class ServerTest extends TestCase
 {
-    #[Test]
-    public function jsonExceptions(): void
+    public function testJsonExceptions(): void
     {
         $logger = $this->getMockBuilder(NullLogger::class)
             ->disableOriginalConstructor()
