@@ -24,7 +24,7 @@ use Symfony\AI\McpSdk\Tests\Fixtures\InMemoryTransport;
 #[CoversClass(Server::class)]
 class ServerTest extends TestCase
 {
-    public function testJsonExceptions(): void
+    public function testJsonExceptions()
     {
         $logger = $this->getMockBuilder(NullLogger::class)
             ->disableOriginalConstructor()

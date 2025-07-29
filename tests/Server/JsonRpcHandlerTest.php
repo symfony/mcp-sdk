@@ -27,7 +27,7 @@ use Symfony\AI\McpSdk\Server\RequestHandlerInterface;
 class JsonRpcHandlerTest extends TestCase
 {
     #[TestDox('Make sure a single notification can be handled by multiple handlers.')]
-    public function testHandleMultipleNotifications(): void
+    public function testHandleMultipleNotifications()
     {
         $handlerA = $this->getMockBuilder(NotificationHandlerInterface::class)
             ->disableOriginalConstructor()
@@ -58,7 +58,7 @@ class JsonRpcHandlerTest extends TestCase
     }
 
     #[TestDox('Make sure a single request can NOT be handled by multiple handlers.')]
-    public function testHandleMultipleRequests(): void
+    public function testHandleMultipleRequests()
     {
         $handlerA = $this->getMockBuilder(RequestHandlerInterface::class)
             ->disableOriginalConstructor()

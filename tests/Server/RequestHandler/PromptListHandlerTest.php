@@ -23,7 +23,7 @@ use Symfony\AI\McpSdk\Server\RequestHandler\PromptListHandler;
 #[CoversClass(PromptListHandler::class)]
 class PromptListHandlerTest extends TestCase
 {
-    public function testHandleEmpty(): void
+    public function testHandleEmpty()
     {
         $handler = new PromptListHandler(new PromptChain([]));
         $message = new Request(1, 'prompts/list', []);
@@ -32,7 +32,7 @@ class PromptListHandlerTest extends TestCase
         $this->assertEquals(['prompts' => []], $response->result);
     }
 
-    public function testHandleReturnAll(): void
+    public function testHandleReturnAll()
     {
         $item = self::createMetadataItem();
         $handler = new PromptListHandler(new PromptChain([$item]));
@@ -42,7 +42,7 @@ class PromptListHandlerTest extends TestCase
         $this->assertArrayNotHasKey('nextCursor', $response->result);
     }
 
-    public function testHandlePagination(): void
+    public function testHandlePagination()
     {
         $item = self::createMetadataItem();
         $handler = new PromptListHandler(new PromptChain([$item, $item]), 2);

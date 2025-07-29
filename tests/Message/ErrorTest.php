@@ -20,7 +20,7 @@ use Symfony\AI\McpSdk\Message\Error;
 #[CoversClass(Error::class)]
 final class ErrorTest extends TestCase
 {
-    public function testWithIntegerId(): void
+    public function testWithIntegerId()
     {
         $error = new Error(1, -32602, 'Another error occurred');
         $expected = [
@@ -35,7 +35,7 @@ final class ErrorTest extends TestCase
         $this->assertSame($expected, $error->jsonSerialize());
     }
 
-    public function testWithStringId(): void
+    public function testWithStringId()
     {
         $error = new Error('abc', -32602, 'Another error occurred');
         $expected = [

@@ -20,7 +20,7 @@ use Symfony\AI\McpSdk\Message\Response;
 #[CoversClass(Response::class)]
 final class ResponseTest extends TestCase
 {
-    public function testWithIntegerId(): void
+    public function testWithIntegerId()
     {
         $response = new Response(1, ['foo' => 'bar']);
         $expected = [
@@ -32,7 +32,7 @@ final class ResponseTest extends TestCase
         $this->assertSame($expected, $response->jsonSerialize());
     }
 
-    public function testWithStringId(): void
+    public function testWithStringId()
     {
         $response = new Response('abc', ['foo' => 'bar']);
         $expected = [

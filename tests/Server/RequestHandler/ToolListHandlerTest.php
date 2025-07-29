@@ -24,7 +24,7 @@ use Symfony\AI\McpSdk\Server\RequestHandler\ToolListHandler;
 #[CoversClass(ToolListHandler::class)]
 class ToolListHandlerTest extends TestCase
 {
-    public function testHandleEmpty(): void
+    public function testHandleEmpty()
     {
         $collection = $this->getMockBuilder(CollectionInterface::class)
             ->disableOriginalConstructor()
@@ -43,7 +43,7 @@ class ToolListHandlerTest extends TestCase
      * @param iterable<MetadataInterface> $metadataList
      */
     #[DataProvider('metadataProvider')]
-    public function testHandleReturnAll(iterable $metadataList): void
+    public function testHandleReturnAll(iterable $metadataList)
     {
         $collection = $this->getMockBuilder(CollectionInterface::class)
             ->disableOriginalConstructor()
@@ -70,7 +70,7 @@ class ToolListHandlerTest extends TestCase
         ];
     }
 
-    public function testHandlePagination(): void
+    public function testHandlePagination()
     {
         $item = self::createMetadataItem();
         $collection = $this->getMockBuilder(CollectionInterface::class)
