@@ -13,5 +13,8 @@ namespace Symfony\AI\McpSdk\Capability\Tool;
 
 interface IdentifierInterface
 {
+    /**
+     * @return string intended for programmatic or logical use, but used as a display name in past specs or fallback (if title isn’t present)
+     */
     public function getName(): string;
 }

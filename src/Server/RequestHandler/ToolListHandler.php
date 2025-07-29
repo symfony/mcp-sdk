@@ -36,14 +36,25 @@ final class ToolListHandler extends BaseRequestHandler
         foreach ($metadataList as $tool) {
             $nextCursor = $tool->getName();
             $inputSchema = $tool->getInputSchema();
-            $tools[] = [
+            $annotations = null === $tool->getAnnotations() ? [] : array_filter([
+                'title' => $tool->getAnnotations()->getTitle(),
+                'destructiveHint' => $tool->getAnnotations()->getDestructiveHint(),
+                'idempotentHint' => $tool->getAnnotations()->getIdempotentHint(),
+                'openWorldHint' => $tool->getAnnotations()->getOpenWorldHint(),
+                'readOnlyHint' => $tool->getAnnotations()->getReadOnlyHint(),
+            ], static fn ($value) => null !== $value);
+
+            $tools[] = array_filter([
                 'name' => $tool->getName(),
                 'description' => $tool->getDescription(),
                 'inputSchema' => [] === $inputSchema ? [
                     'type' => 'object',
                     '$schema' => 'http://json-schema.org/draft-07/schema#',
                 ] : $inputSchema,
-            ];
+                'title' => $tool->getTitle(),
+                'outputSchema' => $tool->getOutputSchema(),
+                'annotations' => (object) $annotations,
+            ], static fn ($value) => null !== $value);
         }
 
         $result = [

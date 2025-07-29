@@ -12,6 +12,7 @@
 namespace App;
 
 use Symfony\AI\McpSdk\Capability\Tool\MetadataInterface;
+use Symfony\AI\McpSdk\Capability\Tool\ToolAnnotationsInterface;
 use Symfony\AI\McpSdk\Capability\Tool\ToolCall;
 use Symfony\AI\McpSdk\Capability\Tool\ToolCallResult;
 use Symfony\AI\McpSdk\Capability\Tool\ToolExecutorInterface;
@@ -50,5 +51,20 @@ class ExampleTool implements MetadataInterface, ToolExecutorInterface
             ],
             'required' => [],
         ];
+    }
+
+    public function getOutputSchema(): ?array
+    {
+        return null;
+    }
+
+    public function getTitle(): ?string
+    {
+        return null;
+    }
+
+    public function getAnnotations(): ?ToolAnnotationsInterface
+    {
+        return null;
     }
 }

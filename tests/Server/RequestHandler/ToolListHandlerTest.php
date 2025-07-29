@@ -17,6 +17,7 @@ use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Capability\Tool\CollectionInterface;
 use Symfony\AI\McpSdk\Capability\Tool\MetadataInterface;
+use Symfony\AI\McpSdk\Capability\Tool\ToolAnnotationsInterface;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Server\RequestHandler\ToolListHandler;
 
@@ -101,6 +102,21 @@ class ToolListHandlerTest extends TestCase
             public function getInputSchema(): array
             {
                 return ['type' => 'object'];
+            }
+
+            public function getOutputSchema(): ?array
+            {
+                return null;
+            }
+
+            public function getTitle(): string
+            {
+                return 'Test tool';
+            }
+
+            public function getAnnotations(): ?ToolAnnotationsInterface
+            {
+                return null;
             }
         };
     }
