@@ -34,7 +34,7 @@ class ToolChain implements ToolExecutorInterface, CollectionInterface
     ) {
     }
 
-    public function getMetadata(int $count, ?string $lastIdentifier = null): iterable
+    public function getMetadata(?int $count, ?string $lastIdentifier = null): iterable
     {
         $found = null === $lastIdentifier;
         foreach ($this->items as $item) {
@@ -48,7 +48,7 @@ class ToolChain implements ToolExecutorInterface, CollectionInterface
             }
 
             yield $item;
-            if (--$count <= 0) {
+            if (null !== $count && 0 >= --$count) {
                 break;
             }
         }

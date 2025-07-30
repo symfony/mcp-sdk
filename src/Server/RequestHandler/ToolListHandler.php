@@ -19,7 +19,7 @@ final class ToolListHandler extends BaseRequestHandler
 {
     public function __construct(
         private readonly CollectionInterface $collection,
-        private readonly int $pageSize = 20,
+        private readonly ?int $pageSize = 20,
     ) {
     }
 
