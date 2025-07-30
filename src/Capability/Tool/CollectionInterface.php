@@ -16,11 +16,11 @@ use Symfony\AI\McpSdk\Exception\InvalidCursorException;
 interface CollectionInterface
 {
     /**
-     * @param int $count the number of metadata items to return
+     * @param int|null $count the number of metadata items to return, null returns all items
      *
      * @return iterable<MetadataInterface>
      *
      * @throws InvalidCursorException if no item with $lastIdentifier was found
      */
-    public function getMetadata(int $count, ?string $lastIdentifier = null): iterable;
+    public function getMetadata(?int $count, ?string $lastIdentifier = null): iterable;
 }
