@@ -30,18 +30,6 @@ final class FactoryTest extends TestCase
         $this->factory = new Factory();
     }
 
-    /**
-     * @param iterable<mixed> $items
-     */
-    private function first(iterable $items): mixed
-    {
-        foreach ($items as $item) {
-            return $item;
-        }
-
-        return null;
-    }
-
     public function testCreateRequest()
     {
         $json = '{"jsonrpc": "2.0", "method": "test_method", "params": {"foo": "bar"}, "id": 123}';
@@ -90,5 +78,17 @@ final class FactoryTest extends TestCase
 
         $result = array_shift($results);
         $this->assertInstanceOf(Notification::class, $result);
+    }
+
+    /**
+     * @param iterable<mixed> $items
+     */
+    private function first(iterable $items): mixed
+    {
+        foreach ($items as $item) {
+            return $item;
+        }
+
+        return null;
     }
 }
