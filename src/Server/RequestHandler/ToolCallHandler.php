@@ -56,7 +56,7 @@ final class ToolCallHandler extends BaseRequestHandler
                 ],
             ],
             // TODO better exception
-            default => throw new InvalidArgumentException('Unsupported tool result type: '.$result->type),
+            default => throw new InvalidArgumentException(\sprintf('Unsupported tool result type: %s', $result->type)),
         };
 
         return new Response($message->id, [

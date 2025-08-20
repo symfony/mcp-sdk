@@ -58,7 +58,7 @@ final class PromptGetHandler extends BaseRequestHandler
                     ],
                 ],
                 // TODO better exception
-                default => throw new InvalidArgumentException('Unsupported PromptGet result type: '.$resultMessage->type),
+                default => throw new InvalidArgumentException(\sprintf('Unsupported PromptGet result type: %s', $resultMessage->type)),
             };
 
             $messages[] = [
