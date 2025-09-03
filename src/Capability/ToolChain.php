@@ -23,6 +23,8 @@ use Symfony\AI\McpSdk\Exception\ToolNotFoundException;
 
 /**
  * A collection of tools. All tools need to implement IdentifierInterface.
+ *
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 class ToolChain implements ToolExecutorInterface, CollectionInterface
 {

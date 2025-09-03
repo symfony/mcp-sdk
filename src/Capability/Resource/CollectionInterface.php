@@ -13,6 +13,9 @@ namespace Symfony\AI\McpSdk\Capability\Resource;
 
 use Symfony\AI\McpSdk\Exception\InvalidCursorException;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 interface CollectionInterface
 {
     /**

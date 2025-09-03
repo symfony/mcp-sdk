@@ -19,6 +19,9 @@ use Symfony\AI\McpSdk\Message\Error;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 final class ToolCallHandler extends BaseRequestHandler
 {
     public function __construct(

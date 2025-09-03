@@ -13,6 +13,9 @@ namespace Symfony\AI\McpSdk\Message;
 
 use Symfony\AI\McpSdk\Exception\InvalidInputMessageException;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 final class Factory
 {
     /**

@@ -18,6 +18,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Heavily inspired by https://jolicode.com/blog/mcp-the-open-protocol-that-turns-llm-chatbots-into-intelligent-agents.
+ *
+ * @author Christopher Hertel <mail@christopher-hertel.de>
  */
 final class SymfonyConsoleTransport implements TransportInterface
 {

@@ -11,6 +11,9 @@
 
 namespace Symfony\AI\McpSdk\Server;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 interface TransportInterface
 {
     public function initialize(): void;

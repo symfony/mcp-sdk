@@ -11,6 +11,9 @@
 
 namespace Symfony\AI\McpSdk\Capability\Prompt;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 interface IdentifierInterface
 {
     public function getName(): string;

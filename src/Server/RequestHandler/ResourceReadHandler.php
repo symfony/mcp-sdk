@@ -19,6 +19,9 @@ use Symfony\AI\McpSdk\Message\Error;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 final class ResourceReadHandler extends BaseRequestHandler
 {
     public function __construct(

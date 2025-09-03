@@ -15,6 +15,9 @@ use Symfony\AI\McpSdk\Capability\Resource\CollectionInterface;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 final class ResourceListHandler extends BaseRequestHandler
 {
     public function __construct(

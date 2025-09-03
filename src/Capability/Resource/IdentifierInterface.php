@@ -11,6 +11,9 @@
 
 namespace Symfony\AI\McpSdk\Capability\Resource;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 interface IdentifierInterface
 {
     public function getUri(): string;

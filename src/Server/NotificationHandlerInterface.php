@@ -14,6 +14,9 @@ namespace Symfony\AI\McpSdk\Server;
 use Symfony\AI\McpSdk\Exception\ExceptionInterface;
 use Symfony\AI\McpSdk\Message\Notification;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 interface NotificationHandlerInterface
 {
     public function supports(Notification $message): bool;

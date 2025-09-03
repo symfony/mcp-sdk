@@ -13,6 +13,9 @@ namespace Symfony\AI\McpSdk\Server\Transport\Sse;
 
 use Symfony\Component\Uid\Uuid;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 interface StoreInterface
 {
     public function push(Uuid $id, string $message): void;

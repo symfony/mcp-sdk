@@ -14,6 +14,9 @@ namespace Symfony\AI\McpSdk\Server\RequestHandler;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 final class PingHandler extends BaseRequestHandler
 {
     public function createResponse(Request $message): Response

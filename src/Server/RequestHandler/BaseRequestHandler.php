@@ -14,6 +14,9 @@ namespace Symfony\AI\McpSdk\Server\RequestHandler;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Server\RequestHandlerInterface;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 abstract class BaseRequestHandler implements RequestHandlerInterface
 {
     public function supports(Request $message): bool

@@ -14,6 +14,9 @@ namespace Symfony\AI\McpSdk\Server\NotificationHandler;
 use Symfony\AI\McpSdk\Message\Notification;
 use Symfony\AI\McpSdk\Server\NotificationHandlerInterface;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 abstract class BaseNotificationHandler implements NotificationHandlerInterface
 {
     public function supports(Notification $message): bool

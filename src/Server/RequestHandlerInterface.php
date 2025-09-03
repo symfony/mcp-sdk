@@ -16,6 +16,9 @@ use Symfony\AI\McpSdk\Message\Error;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Message\Response;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 interface RequestHandlerInterface
 {
     public function supports(Request $message): bool;

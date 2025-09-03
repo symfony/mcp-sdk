@@ -14,6 +14,9 @@ namespace Symfony\AI\McpSdk\Capability\Resource;
 use Symfony\AI\McpSdk\Exception\ResourceNotFoundException;
 use Symfony\AI\McpSdk\Exception\ResourceReadException;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 interface ResourceReaderInterface
 {
     /**

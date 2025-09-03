@@ -11,6 +11,9 @@
 
 namespace Symfony\AI\McpSdk\Capability\Resource;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 interface MetadataInterface extends IdentifierInterface
 {
     public function getName(): string;

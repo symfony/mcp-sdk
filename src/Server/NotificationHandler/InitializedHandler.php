@@ -13,6 +13,9 @@ namespace Symfony\AI\McpSdk\Server\NotificationHandler;
 
 use Symfony\AI\McpSdk\Message\Notification;
 
+/**
+ * @author Christopher Hertel <mail@christopher-hertel.de>
+ */
 final class InitializedHandler extends BaseNotificationHandler
 {
     public function handle(Notification $notification): void
