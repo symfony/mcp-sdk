@@ -11,17 +11,13 @@
 
 namespace Symfony\AI\McpSdk\Tests\Server\RequestHandler;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Capability\Resource\CollectionInterface;
 use Symfony\AI\McpSdk\Capability\Resource\MetadataInterface;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Server\RequestHandler\ResourceListHandler;
 
-#[Small]
-#[CoversClass(ResourceListHandler::class)]
 class ResourceListHandlerTest extends TestCase
 {
     public function testHandleEmpty()

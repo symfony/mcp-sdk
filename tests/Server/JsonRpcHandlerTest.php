@@ -11,8 +11,6 @@
 
 namespace Symfony\AI\McpSdk\Tests\Server;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
@@ -22,8 +20,6 @@ use Symfony\AI\McpSdk\Server\JsonRpcHandler;
 use Symfony\AI\McpSdk\Server\NotificationHandlerInterface;
 use Symfony\AI\McpSdk\Server\RequestHandlerInterface;
 
-#[Small]
-#[CoversClass(JsonRpcHandler::class)]
 class JsonRpcHandlerTest extends TestCase
 {
     #[TestDox('Make sure a single notification can be handled by multiple handlers.')]

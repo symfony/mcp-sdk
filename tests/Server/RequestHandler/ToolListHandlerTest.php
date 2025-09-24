@@ -11,9 +11,7 @@
 
 namespace Symfony\AI\McpSdk\Tests\Server\RequestHandler;
 
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Capability\Tool\CollectionInterface;
 use Symfony\AI\McpSdk\Capability\Tool\MetadataInterface;
@@ -21,8 +19,6 @@ use Symfony\AI\McpSdk\Capability\Tool\ToolAnnotationsInterface;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Server\RequestHandler\ToolListHandler;
 
-#[Small]
-#[CoversClass(ToolListHandler::class)]
 class ToolListHandlerTest extends TestCase
 {
     public function testHandleEmpty()

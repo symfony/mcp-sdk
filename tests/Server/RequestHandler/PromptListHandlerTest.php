@@ -11,16 +11,12 @@
 
 namespace Symfony\AI\McpSdk\Tests\Server\RequestHandler;
 
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use Symfony\AI\McpSdk\Capability\Prompt\MetadataInterface;
 use Symfony\AI\McpSdk\Capability\PromptChain;
 use Symfony\AI\McpSdk\Message\Request;
 use Symfony\AI\McpSdk\Server\RequestHandler\PromptListHandler;
 
-#[Small]
-#[CoversClass(PromptListHandler::class)]
 class PromptListHandlerTest extends TestCase
 {
     public function testHandleEmpty()
