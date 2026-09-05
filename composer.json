@@ -3,6 +3,7 @@
     "description": "Model Context Protocol SDK for Client and Server applications in PHP",
     "license": "MIT",
     "type": "library",
+    "abandoned": "mcp/sdk",
     "authors": [
         {
             "name": "Christopher Hertel",
